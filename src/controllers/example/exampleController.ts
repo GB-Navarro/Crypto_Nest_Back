@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 
-async function example(req: Request, res: Response){
-    console.log("a");
+import exampleServices from "../../services/example/exampleServices";
+
+async function example(req: Request, res: Response) {
+
+    exampleServices.example();
+
     res.sendStatus(200);
 }
 
