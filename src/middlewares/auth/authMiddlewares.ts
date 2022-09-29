@@ -10,3 +10,9 @@ async function checkPasswordsEquality(req: Request, res: Response, next: NextFun
 
     next();
 }
+
+const authMiddlewares = {
+    checkPasswordsEquality
+}
+
+export default authMiddlewares;
