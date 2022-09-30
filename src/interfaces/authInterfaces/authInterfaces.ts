@@ -5,3 +5,9 @@ export type signUpInterface = {
     confirmedPassword: string
 }
 
+export type signInInterface = {
+    name: string,
+    email: string,
+    password: string
+}
+
