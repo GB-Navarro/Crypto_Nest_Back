@@ -6,16 +6,16 @@ dotenv.config();
 
 function encryptPassword(password: string): string {
 
-    const encryptedPassword = bcrypt.hashSync(password,10);
-    
+    const encryptedPassword = bcrypt.hashSync(password, 10);
+
     return encryptedPassword;
 }
 
-function comparePasswords(password: string, encryptedPassword: string): void{
+function comparePasswords(password: string, encryptedPassword: string): void {
 
     const isEqual = bcrypt.compareSync(password, encryptedPassword);
 
-    if(!(isEqual)){
+    if (!(isEqual)) {
         throw ({ type: "wrongPassword", message: "Wrong password!" });
     }
 }
@@ -33,11 +33,25 @@ function filterToken(unfilteredToken: string): string {
     return token;
 }
 
+function getTokenDataOrFail(unfilteredToken: string) {
+
+    const token = filterToken(unfilteredToken);
+
+    try {
+        const data = jwt.verify(token, process.env.JWT_KEY);
+
+        return data;
+    } catch (error) {
+        throw ({ type: "invalidToken", message: "Invalid token!" });
+    }
+
+}
+
 const authUtils = {
     encryptPassword,
     generateToken,
     comparePasswords,
-    filterToken
+    getTokenDataOrFail
 }
 
 export default authUtils;
