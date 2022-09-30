@@ -26,10 +26,18 @@ function generateToken(userEmail: string): string {
     return token;
 }
 
+function filterToken(unfilteredToken: string): string {
+
+    const token = unfilteredToken.replace("Bearer ", "");
+
+    return token;
+}
+
 const authUtils = {
     encryptPassword,
     generateToken,
-    comparePasswords
+    comparePasswords,
+    filterToken
 }
 
 export default authUtils;
