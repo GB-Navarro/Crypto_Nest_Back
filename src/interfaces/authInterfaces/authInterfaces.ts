@@ -6,7 +6,6 @@ export type signUpInterface = {
 }
 
 export type signInInterface = {
-    name: string,
     email: string,
     password: string
 }
