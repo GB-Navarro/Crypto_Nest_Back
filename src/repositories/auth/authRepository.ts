@@ -8,7 +8,7 @@ async function signUp(data: Omit<signUpInterface, "confirmedPassword">){
     });
 }
 
-async function getByEmail(email: string){
+async function getUserByEmail(email: string){
     return await prisma.users.findFirst({
         where:{
             email:email
@@ -29,7 +29,7 @@ async function getUserPasswordByEmail(email: string){
 
 const authRepository = {
     signUp,
-    getByEmail,
+    getUserByEmail,
     getUserPasswordByEmail
 }
 
