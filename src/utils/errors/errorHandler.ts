@@ -5,5 +5,11 @@ export default async function errorHandler(error: any, req: Request, res: Respon
     if(error.type === "passwordsAreNotEqual"){
         return res.status(404).send(error.message);
     }
+    if(error.type === "emailAlreadyExist"){
+        return res.status(409).send(error.message);
+    }
+
+    console.log(error);
+
     return res.sendStatus(500);
 }
