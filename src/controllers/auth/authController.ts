@@ -14,7 +14,7 @@ async function signUp(req: Request, res: Response) {
 async function signIn(req: Request, res: Response) {
     const data: signInInterface = req.body;
 
-    const token = authServices.signIn(data);
+    const token = await authServices.signIn(data);
 
     res.send(token).status(200);
 }
