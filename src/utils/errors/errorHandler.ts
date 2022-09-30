@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 export default async function errorHandler(error: any, req: Request, res: Response, next: NextFunction) {
 
-    if (error.type === "userDoNotExist") {
+    if (error.type === "userDoNotExist" || error.type === "wrongPassword") {
         return res.status(401).send(error.message);
     }
     if (error.type === "passwordsAreNotEqual") {
