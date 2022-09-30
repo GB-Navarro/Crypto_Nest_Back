@@ -31,7 +31,8 @@ function signIn(data: signInInterface) {
 
 const authServices = {
     signUp,
-    checkEmailExistence
+    checkEmailExistence,
+    signIn
 }
 
 export default authServices;
