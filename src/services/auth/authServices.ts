@@ -11,12 +11,12 @@ async function signUp(data: signUpInterface) {
     await checkEmailExistence(email)
 
     data.password = authUtils.encryptPassword(password);
-    
+
     await authRepository.signUp(data);
 }
 
 async function checkEmailExistence(email: string) {
-    const result = await authRepository.getByEmail(email);
+    const result = await authRepository.getUserByEmail(email);
 
     if (result != null) {
         throw ({ type: "emailAlreadyExist", message: "This email already exist!" });
@@ -25,15 +25,21 @@ async function checkEmailExistence(email: string) {
 
 async function signIn(data: signInInterface) {
 
-    const { email }: { email: string } = data;
+    const { email, password }: { email: string, password: string } = data;
+
+    await checkUserExistence(email);
+
+    const { password: encryptedPassword } = await authRepository.getUserPasswordByEmail(email);
+
+    authUtils.comparePasswords(password, encryptedPassword);
 
     const token = authUtils.generateToken(email);
-    
+
     return token;
 }
 
 async function checkUserExistence(email: string) {
-    const result = await authRepository.getByEmail(email);
+    const result = await authRepository.getUserByEmail(email);
 
     if (result === null) {
         throw ({ type: "userDoNotExist", message: "This user does not exist!" });
