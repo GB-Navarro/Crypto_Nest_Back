@@ -10,7 +10,6 @@ const signUp = Joi.object<signUpInterface>({
 })
 
 const signIn = Joi.object<signInInterface>({
-    name: Joi.string().min(4).max(15).required(),
     email: Joi.string().email({ tlds: { allow: false } }).min(7).max(40).required(),
     password: Joi.string().min(8).max(20).required()
 })
