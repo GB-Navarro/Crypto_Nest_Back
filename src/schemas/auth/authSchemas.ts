@@ -1,4 +1,4 @@
-import { signUpInterface } from "../../interfaces/authInterfaces/authInterfaces";
+import { signUpInterface, signInInterface } from "../../interfaces/authInterfaces/authInterfaces";
 
 import Joi from "joi";
 
@@ -9,8 +9,14 @@ const signUp = Joi.object<signUpInterface>({
     confirmedPassword: Joi.string().min(8).max(20).required()
 })
 
+const signIn = Joi.object<signInInterface>({
+    email: Joi.string().email({ tlds: { allow: false } }).min(7).max(40).required(),
+    password: Joi.string().min(8).max(20).required()
+})
+
 const authSchemas = {
-    signUp
+    signUp,
+    signIn
 }
 
 export default authSchemas;
