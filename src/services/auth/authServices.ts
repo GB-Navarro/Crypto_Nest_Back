@@ -4,11 +4,14 @@ import authRepository from "../../repositories/auth/authRepository";
 import authUtils from "../../utils/auth/authUtils";
 
 async function signUp(data: signUpInterface) {
-    const { email }: { email: string } = data;
+    const { email, password }: { email: string, password: string } = data;
 
     delete data.confirmedPassword;
 
     await checkEmailExistence(email)
+
+    data.password = authUtils.encryptPassword(password);
+    
     await authRepository.signUp(data);
 }
 
