@@ -9,7 +9,7 @@ datasource db {
 
 model articles {
   id               Int              @id(map: "articles_pk") @default(autoincrement())
-  title            String           @unique
+  tittle            String           @unique
   text             String
   categoryId       Int
   date             DateTime         @default(now())
