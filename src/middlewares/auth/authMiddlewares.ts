@@ -27,7 +27,8 @@ function validateToken(req: Request, res: Response, next: NextFunction){
 }
 
 const authMiddlewares = {
-    checkPasswordsEquality
+    checkPasswordsEquality,
+    validateToken
 }
 
 export default authMiddlewares;
