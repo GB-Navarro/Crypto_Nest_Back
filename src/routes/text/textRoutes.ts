@@ -7,7 +7,7 @@ import textSchemas from "../../schemas/text/textSchemas";
 
 const textRouter = Router();
 
-textRouter.get("/insert/:type", genericMiddlewares.validateSchema(textSchemas.create), authMiddlewares.validateToken, textController.create);
+textRouter.post("/insert/:type", genericMiddlewares.validateSchema(textSchemas.create), authMiddlewares.validateToken, textController.create);
 
 export default textRouter;
 
