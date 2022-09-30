@@ -20,7 +20,7 @@ async function checkEmailExistence(email: string) {
     }
 }
 
-function signIn(data: signInInterface) {
+async function signIn(data: signInInterface) {
 
     const { email }: { email: string } = data;
 
@@ -29,10 +29,19 @@ function signIn(data: signInInterface) {
     return token;
 }
 
+async function checkUserExistence(email: string) {
+    const result = await authRepository.getByEmail(email);
+
+    if (result === null) {
+        throw ({ type: "userDoNotExist", message: "This user does not exist!" });
+    }
+}
+
 const authServices = {
     signUp,
     checkEmailExistence,
-    signIn
+    signIn,
+    checkUserExistence
 }
 
 export default authServices;
