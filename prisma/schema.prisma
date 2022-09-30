@@ -12,7 +12,7 @@ model articles {
   title            String           @unique
   text             String
   categoryId       Int
-  date             DateTime         @db.Timestamp(6)
+  date             DateTime         @default(now())
   articlesCategory articlesCategory @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "articles_fk0")
   userArticles     userArticles[]
 }
@@ -28,7 +28,7 @@ model news {
   tittle       String
   text         String
   categoryId   Int
-  date         DateTime     @db.Timestamp(6)
+  date         DateTime     @default(now())
   newsCategory newsCategory @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "news_fk0")
   userNews     userNews[]
 }
