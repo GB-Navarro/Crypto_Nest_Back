@@ -1,4 +1,12 @@
 import prisma from "../../database/prisma";
+import { articles } from "@prisma/client";
+ 
+
+async function create(data: Omit<articles,"id" | "date">){
+    await prisma.articles.create({
+        data: data
+    })
+}
 
 async function getCategoryIdByName(name: string){
     return await prisma.articlesCategory.findFirst({
@@ -12,6 +20,7 @@ async function getCategoryIdByName(name: string){
 }
 
 const articleRepository = {
+    create,
     getCategoryIdByName
 }
 
