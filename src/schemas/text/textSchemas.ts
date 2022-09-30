@@ -1,8 +1,8 @@
-import { textInterface } from "../../interfaces/textInterfaces/textInterfaces";
+import { createTextInterface } from "../../interfaces/textInterfaces/textInterfaces";
 
 import Joi from "joi";
 
-const createText = Joi.object<textInterface>({
+const createText = Joi.object<createTextInterface>({
     type: Joi.string().required().allow(["news", "educational"]),
     tittle: Joi.string().min(5).required(),
     text: Joi.string().min(100).required(),
