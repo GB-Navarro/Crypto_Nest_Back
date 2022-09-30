@@ -33,7 +33,7 @@ async function signIn(data: signInInterface) {
 
     authUtils.comparePasswords(password, encryptedPassword);
 
-    const token = authUtils.generateToken(email);
+    const token = authUtils.generateToken(id,email);
 
     return token;
 }

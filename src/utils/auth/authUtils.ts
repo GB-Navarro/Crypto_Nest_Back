@@ -5,14 +5,12 @@ import bcrypt from "bcrypt";
 dotenv.config();
 
 function encryptPassword(password: string): string {
-
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
     return encryptedPassword;
 }
 
 function comparePasswords(password: string, encryptedPassword: string): void {
-
     const isEqual = bcrypt.compareSync(password, encryptedPassword);
 
     if (!(isEqual)) {
@@ -20,8 +18,13 @@ function comparePasswords(password: string, encryptedPassword: string): void {
     }
 }
 
-function generateToken(userEmail: string): string {
-    const token = jwt.sign(userEmail, process.env.JWT_KEY,);
+function generateToken(userId: number, userEmail: string): string {
+    const data = {
+        userId: userId,
+        userEmail: userEmail
+    }
+
+    const token = jwt.sign(data, process.env.JWT_KEY,);
 
     return token;
 }
@@ -34,7 +37,6 @@ function filterToken(unfilteredToken: string): string {
 }
 
 function getTokenDataOrFail(unfilteredToken: string) {
-
     const token = filterToken(unfilteredToken);
 
     try {
