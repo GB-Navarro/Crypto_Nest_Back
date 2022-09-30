@@ -4,14 +4,23 @@ import bcrypt from "bcrypt";
 
 dotenv.config();
 
-function encryptPassword(password: string){
+function encryptPassword(password: string): string {
 
-    const encryptPassword = bcrypt.hashSync(password,10);
+    const encryptedPassword = bcrypt.hashSync(password,10);
     
-    return encryptPassword;
+    return encryptedPassword;
 }
 
-function generateToken(userEmail: string) {
+function comparePasswords(password: string, encryptedPassword: string): void{
+
+    const isEqual = bcrypt.compareSync(password, encryptedPassword);
+
+    if(!(isEqual)){
+        throw ({ type: "wrongPassword", message: "Wrong password!" });
+    }
+}
+
+function generateToken(userEmail: string): string {
     const token = jwt.sign(userEmail, process.env.JWT_KEY,);
 
     return token;
@@ -19,7 +28,8 @@ function generateToken(userEmail: string) {
 
 const authUtils = {
     encryptPassword,
-    generateToken
+    generateToken,
+    comparePasswords
 }
 
 export default authUtils;
