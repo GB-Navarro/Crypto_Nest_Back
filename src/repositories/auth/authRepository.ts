@@ -8,8 +8,17 @@ async function signUp(data: Omit<signUpInterface, "confirmedPassword">){
     });
 }
 
+async function getByEmail(email: string){
+    return await prisma.users.findFirst({
+        where:{
+            email:email
+        }
+    })
+}
+
 const authRepository = {
-    signUp
+    signUp,
+    getByEmail
 }
 
 export default authRepository;
