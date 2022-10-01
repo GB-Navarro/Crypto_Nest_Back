@@ -2,11 +2,29 @@ import { news, userNews } from "@prisma/client";
 
 import prisma from "../../database/prisma";
 
-async function getByTittle(tittle: string) {
+async function getByTittleAndUserId(tittle: string, userId: number) {
 
     return await prisma.news.findFirst({
+        include: {
+            userNews: {
+                select: {
+                    userId: true
+                }
+            }
+        },
         where: {
-            tittle: tittle
+            AND: [
+                {
+                    tittle: tittle
+                },
+                {
+                    userNews: {
+                        some: {
+                            userId: userId
+                        }
+                    }
+                }
+            ]
         }
     })
 }
@@ -40,7 +58,7 @@ async function createRelationship(data: Omit<userNews, "id">) {
 }
 
 const newsRepository = {
-    getByTittle,
+    getByTittleAndUserId,
     getCategoryIdByName,
     createAndReturn,
     createRelationship
