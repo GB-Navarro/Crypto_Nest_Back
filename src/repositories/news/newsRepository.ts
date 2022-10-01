@@ -1,3 +1,5 @@
+import { news } from "@prisma/client";
+
 import prisma from "../../database/prisma";
 
 async function getByTittle(tittle: string) {
@@ -17,6 +19,14 @@ async function getCategoryIdByName(name: string) {
             id: true
         }
     })
+}
+
+async function createAndReturn(data: Omit<news, "id" | "date">) {
+    const result = await prisma.news.create({
+        data: data
+    })
+
+    return result
 }
 
 const newsRepository = {
