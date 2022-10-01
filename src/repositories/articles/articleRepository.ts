@@ -2,10 +2,10 @@ import { articles } from "@prisma/client";
 
 import prisma from "../../database/prisma";
 
-async function getByTittle(tittle: string){
+async function getByTittle(tittle: string) {
     await prisma.articles.findFirst({
-        where:{
-            tittle:tittle
+        where: {
+            tittle: tittle
         }
     })
 }
@@ -29,7 +29,8 @@ async function getCategoryIdByName(name: string) {
 
 const articleRepository = {
     create,
-    getCategoryIdByName
+    getCategoryIdByName,
+    getByTittle
 }
 
 export default articleRepository;
