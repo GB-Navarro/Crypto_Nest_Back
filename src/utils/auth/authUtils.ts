@@ -24,7 +24,11 @@ function generateToken(userId: number, userEmail: string): string {
         userEmail: userEmail
     }
 
-    const token = jwt.sign(data, process.env.JWT_KEY,);
+    const config = {
+        expiresIn: 60*60
+    }
+    
+    const token = jwt.sign(data, process.env.JWT_KEY, config);
 
     return token;
 }
