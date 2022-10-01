@@ -1,6 +1,6 @@
 import { createTextInterface } from "../../interfaces/textInterfaces/textInterfaces";
 import { userInfoInterface } from "../../interfaces/userInterfaces/userInterfaces";
-import { articles } from "@prisma/client";
+import { articles, userArticles } from "@prisma/client";
 
 import articleRepository from "../../repositories/articles/articleRepository";
 
@@ -13,9 +13,17 @@ async function create(data: createTextInterface, userInfo: userInfoInterface) {
 
     const { id: categoryId } = await getCategoryIdByName(categoryName);
 
-    const article = generateData(tittle, text, categoryId);
+    const article: Omit<articles, "id" | "date"> = generateData(tittle, text, categoryId);
 
-    await articleRepository.create(article);
+    const { id: articleId } = await articleRepository.createAndReturn(article);
+
+    const relationshipData: Omit<userArticles, "id"> = {
+        userId: userId,
+        articleId: articleId
+    }
+
+    await articleRepository.createRelationship(relationshipData);
+
 }
 
 async function getCategoryIdByName(categoryName: string) {
