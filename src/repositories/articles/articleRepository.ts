@@ -3,7 +3,7 @@ import { articles } from "@prisma/client";
 import prisma from "../../database/prisma";
 
 async function getByTittle(tittle: string) {
-    await prisma.articles.findFirst({
+    return await prisma.articles.findFirst({
         where: {
             tittle: tittle
         }
