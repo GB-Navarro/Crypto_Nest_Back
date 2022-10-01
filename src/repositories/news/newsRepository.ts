@@ -1,4 +1,4 @@
-import { news } from "@prisma/client";
+import { news, userNews } from "@prisma/client";
 
 import prisma from "../../database/prisma";
 
@@ -29,9 +29,18 @@ async function createAndReturn(data: Omit<news, "id" | "date">) {
     return result
 }
 
+async function createRelationship(data: Omit<userNews, "id">) {
+
+    await prisma.userNews.create({
+        data: data
+    })
+}
+
 const newsRepository = {
     getByTittle,
-    getCategoryIdByName
+    getCategoryIdByName,
+    createAndReturn,
+    createRelationship
 }
 
 export default newsRepository;
