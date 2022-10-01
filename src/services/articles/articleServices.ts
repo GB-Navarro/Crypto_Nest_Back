@@ -1,8 +1,9 @@
 import { createTextInterface } from "../../interfaces/textInterfaces/textInterfaces";
 import { userInfoInterface } from "../../interfaces/userInterfaces/userInterfaces";
-import { articles, userArticles } from "@prisma/client";
+import { articles, articlesCategory, userArticles } from "@prisma/client";
 
 import articleRepository from "../../repositories/articles/articleRepository";
+import articleUtils from "../../utils/article/articleUtils";
 
 async function create(data: createTextInterface, userInfo: userInfoInterface) {
 
@@ -11,16 +12,15 @@ async function create(data: createTextInterface, userInfo: userInfoInterface) {
 
     await checkTittleExistence(tittle);
 
-    const { id: categoryId } = await getCategoryIdByName(categoryName);
+    const { id: categoryId }: Partial<articlesCategory> = await getCategoryIdByName(categoryName);
 
-    const article: Omit<articles, "id" | "date"> = generateArticleData(tittle, text, categoryId);
+    const article: Omit<articles, "id" | "date"> = articleUtils.generateArticleData(tittle, text, categoryId);
 
-    const { id: articleId } = await articleRepository.createAndReturn(article);
+    const { id: articleId }: Partial<articles> = await articleRepository.createAndReturn(article);
 
-    const relationshipData = generateRelationshipData(userId, articleId);
+    const relationshipData: Omit<userArticles, "id"> = articleUtils.generateRelationshipData(userId, articleId);
 
     await articleRepository.createRelationship(relationshipData);
-
 }
 
 async function getCategoryIdByName(categoryName: string) {
@@ -41,27 +41,6 @@ async function checkTittleExistence(tittle: string) {
     if (tittleExist) {
         throw ({ type: "tittleAlreadyExist", message: "This tittle already exist!" });
     }
-}
-
-function generateArticleData(tittle: string, text: string, categoryId: number): Omit<articles, "id" | "date"> {
-
-    const article: Omit<articles, "id" | "date"> = {
-        tittle: tittle,
-        text: text,
-        categoryId: categoryId
-    }
-
-    return article;
-}
-
-function generateRelationshipData(userId: number, articleId: number): Omit<userArticles, "id"> {
-
-    const relationshipData: Omit<userArticles, "id"> = {
-        userId: userId,
-        articleId: articleId
-    }
-
-    return relationshipData;
 }
 
 const articleServices = {
