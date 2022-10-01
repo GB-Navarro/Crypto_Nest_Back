@@ -1,17 +1,19 @@
 import { Request, Response } from "express";
+import { userInfoInterface } from "../../interfaces/userInterfaces/userInterfaces";
 import { createTextInterface } from "../../interfaces/textInterfaces/textInterfaces";
 
+import newsServices from "../../services/news/newsServices";
 import articleServices from "../../services/articles/articleServices";
 
 async function create(req: Request, res: Response) {
 
-    const type = req.params.type;
-    const userInfo = res.locals.data;
-
     const data: createTextInterface = req.body;
 
-    if (type === "news") {
+    const type: string = req.params.type;
+    const userInfo: userInfoInterface = res.locals.data;
 
+    if (type === "news") {
+        await newsServices.create(data, userInfo);
     } else {
         await articleServices.create(data, userInfo);
     }
