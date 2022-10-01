@@ -10,10 +10,12 @@ async function getByTittle(tittle: string) {
     })
 }
 
-async function create(data: Omit<articles, "id" | "date">) {
-    await prisma.articles.create({
+async function createAndReturn(data: Omit<articles, "id" | "date">) {
+    const result = await prisma.articles.create({
         data: data
     })
+
+    return result
 }
 
 async function getCategoryIdByName(name: string) {
@@ -28,7 +30,7 @@ async function getCategoryIdByName(name: string) {
 }
 
 const articleRepository = {
-    create,
+    createAndReturn,
     getCategoryIdByName,
     getByTittle
 }
