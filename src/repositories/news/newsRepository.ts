@@ -8,8 +8,20 @@ async function getByTittle(tittle: string) {
     })
 }
 
+async function getCategoryIdByName(name: string) {
+    return await prisma.newsCategory.findFirst({
+        where: {
+            name: name
+        },
+        select: {
+            id: true
+        }
+    })
+}
+
 const newsRepository = {
-    getByTittle
+    getByTittle,
+    getCategoryIdByName
 }
 
 export default newsRepository;
