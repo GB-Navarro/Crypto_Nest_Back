@@ -11,6 +11,9 @@ export default async function errorHandler(error: any, req: Request, res: Respon
     if (error.type === "emailAlreadyExist" || error.type === "tittleAlreadyExist") {
         return res.status(409).send(error.message);
     }
+    if (error.type === "invalidParam") {
+        return res.status(422).send(error.message);
+    }
 
     console.log(error);
 
