@@ -8,7 +8,7 @@ export default async function errorHandler(error: any, req: Request, res: Respon
     if (error.type === "passwordsAreNotEqual" || error.type === "categoryDoNotExist") {
         return res.status(404).send(error.message);
     }
-    if (error.type === "emailAlreadyExist") {
+    if (error.type === "emailAlreadyExist" || error.type === "tittleAlreadyExist") {
         return res.status(409).send(error.message);
     }
 
