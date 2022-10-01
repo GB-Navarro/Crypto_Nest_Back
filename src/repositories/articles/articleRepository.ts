@@ -1,19 +1,27 @@
-import prisma from "../../database/prisma";
 import { articles } from "@prisma/client";
- 
 
-async function create(data: Omit<articles,"id" | "date">){
+import prisma from "../../database/prisma";
+
+async function getByTittle(tittle: string){
+    await prisma.articles.findFirst({
+        where:{
+            tittle:tittle
+        }
+    })
+}
+
+async function create(data: Omit<articles, "id" | "date">) {
     await prisma.articles.create({
         data: data
     })
 }
 
-async function getCategoryIdByName(name: string){
+async function getCategoryIdByName(name: string) {
     return await prisma.articlesCategory.findFirst({
-        where:{
+        where: {
             name: name
         },
-        select:{
+        select: {
             id: true
         }
     })
