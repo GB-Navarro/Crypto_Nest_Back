@@ -27,30 +27,32 @@ async function signIn(data: signInInterface) {
 
     const { email, password }: { email: string, password: string } = data;
 
-    await checkUserExistence(email);
+    const id = await getUserIdOrFail(email);
 
     const { password: encryptedPassword } = await authRepository.getUserPasswordByEmail(email);
 
     authUtils.comparePasswords(password, encryptedPassword);
 
-    const token = authUtils.generateToken(email);
+    const token = authUtils.generateToken(id,email);
 
     return token;
 }
 
-async function checkUserExistence(email: string) {
+async function getUserIdOrFail(email: string) {
     const result = await authRepository.getUserByEmail(email);
 
     if (result === null) {
         throw ({ type: "userDoNotExist", message: "This user does not exist!" });
     }
+
+    const { id } = result;
+    
+    return id;
 }
 
 const authServices = {
     signUp,
-    checkEmailExistence,
-    signIn,
-    checkUserExistence
+    signIn
 }
 
 export default authServices;
