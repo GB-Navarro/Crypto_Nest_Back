@@ -13,14 +13,11 @@ async function create(data: createTextInterface, userInfo: userInfoInterface) {
 
     const { id: categoryId } = await getCategoryIdByName(categoryName);
 
-    const article: Omit<articles, "id" | "date"> = generateData(tittle, text, categoryId);
+    const article: Omit<articles, "id" | "date"> = generateArticleData(tittle, text, categoryId);
 
     const { id: articleId } = await articleRepository.createAndReturn(article);
 
-    const relationshipData: Omit<userArticles, "id"> = {
-        userId: userId,
-        articleId: articleId
-    }
+    const relationshipData = generateRelationshipData(userId, articleId);
 
     await articleRepository.createRelationship(relationshipData);
 
@@ -46,7 +43,7 @@ async function checkTittleExistence(tittle: string) {
     }
 }
 
-function generateData(tittle: string, text: string, categoryId: number): Omit<articles, "id" | "date"> {
+function generateArticleData(tittle: string, text: string, categoryId: number): Omit<articles, "id" | "date"> {
 
     const article: Omit<articles, "id" | "date"> = {
         tittle: tittle,
@@ -55,6 +52,16 @@ function generateData(tittle: string, text: string, categoryId: number): Omit<ar
     }
 
     return article;
+}
+
+function generateRelationshipData(userId: number, articleId: number): Omit<userArticles, "id"> {
+
+    const relationshipData: Omit<userArticles, "id"> = {
+        userId: userId,
+        articleId: articleId
+    }
+
+    return relationshipData;
 }
 
 const articleServices = {
