@@ -1,4 +1,4 @@
-import { articles } from "@prisma/client";
+import { articles, userArticles } from "@prisma/client";
 
 import prisma from "../../database/prisma";
 
@@ -18,6 +18,13 @@ async function createAndReturn(data: Omit<articles, "id" | "date">) {
     return result
 }
 
+async function createRelationship(data: Omit<userArticles,"id">){
+
+    await prisma.userArticles.create({
+        data: data
+    })
+}
+
 async function getCategoryIdByName(name: string) {
     return await prisma.articlesCategory.findFirst({
         where: {
@@ -31,6 +38,7 @@ async function getCategoryIdByName(name: string) {
 
 const articleRepository = {
     createAndReturn,
+    createRelationship,
     getCategoryIdByName,
     getByTittle
 }
