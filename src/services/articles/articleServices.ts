@@ -13,13 +13,7 @@ async function create(data: createTextInterface, userInfo: userInfoInterface) {
 
     const { id: categoryId } = await getCategoryIdByName(categoryName);
 
-    delete data.category
-
-    const article: Omit<articles, "id" | "date"> = {
-        tittle: tittle,
-        text: text,
-        categoryId: categoryId
-    }
+    const article = generateData(tittle, text, categoryId);
 
     await articleRepository.create(article);
 }
@@ -42,6 +36,17 @@ async function checkTittleExistence(tittle: string) {
     if (tittleExist) {
         throw ({ type: "tittleAlreadyExist", message: "This tittle already exist!" });
     }
+}
+
+function generateData(tittle: string, text: string, categoryId: number): Omit<articles, "id" | "date"> {
+
+    const article: Omit<articles, "id" | "date"> = {
+        tittle: tittle,
+        text: text,
+        categoryId: categoryId
+    }
+
+    return article;
 }
 
 const articleServices = {
