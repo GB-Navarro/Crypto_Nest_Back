@@ -5,9 +5,9 @@ import { createTextInterface } from "../../interfaces/textInterfaces/textInterfa
 import articleUtils from "../../utils/article/articleUtils";
 import articleRepository from "../../repositories/articles/articleRepository";
 
-async function checkTittleExistence(tittle: string) {
+async function checkTittleExistence(tittle: string, userId: number) {
 
-    const tittleExist: articles = await articleRepository.getByTittle(tittle);
+    const tittleExist: articles = await articleRepository.getByTittleAndUserId(tittle, userId);
 
     if (tittleExist) {
         throw ({ type: "tittleAlreadyExist", message: "This tittle already exist!" });
@@ -29,7 +29,7 @@ async function create(data: createTextInterface, userInfo: userInfoInterface) {
     const { tittle, text, category: categoryName }: { tittle: string, text: string, category: string } = data;
     const { userId }: { userId: number } = userInfo;
 
-    await checkTittleExistence(tittle);
+    await checkTittleExistence(tittle, userId);
 
     const { id: categoryId }: Partial<articlesCategory> = await getCategoryIdByName(categoryName);
 

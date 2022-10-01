@@ -2,11 +2,29 @@ import { articles, userArticles } from "@prisma/client";
 
 import prisma from "../../database/prisma";
 
-async function getByTittle(tittle: string) {
+async function getByTittleAndUserId(tittle: string, userId: number) {
 
     return await prisma.articles.findFirst({
+        include: {
+            userArticles: {
+                select: {
+                    userId: true
+                }
+            }
+        },
         where: {
-            tittle: tittle
+            AND: [
+                {
+                    tittle: tittle
+                },
+                {
+                    userArticles: {
+                        some: {
+                            userId: userId
+                        }
+                    }
+                }
+            ]
         }
     })
 }
@@ -40,7 +58,7 @@ async function createRelationship(data: Omit<userArticles, "id">) {
 }
 
 const articleRepository = {
-    getByTittle,
+    getByTittleAndUserId,
     getCategoryIdByName,
     createAndReturn,
     createRelationship
