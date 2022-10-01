@@ -9,7 +9,7 @@ datasource db {
 
 model articles {
   id               Int              @id(map: "articles_pk") @default(autoincrement())
-  tittle            String           @unique
+  tittle           String
   text             String
   categoryId       Int
   date             DateTime         @default(now())
@@ -58,8 +58,8 @@ model userNews {
 model users {
   id           Int            @id(map: "users_pk") @default(autoincrement())
   name         String         @db.VarChar(15)
-  email        String         @db.VarChar(40) @unique
-  password     String         
+  email        String         @unique @db.VarChar(40)
+  password     String
   userArticles userArticles[]
   userNews     userNews[]
 }
