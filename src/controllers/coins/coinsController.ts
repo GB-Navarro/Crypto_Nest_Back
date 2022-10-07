@@ -9,8 +9,16 @@ async function getAll(req: Request, res:Response ){
     res.status(200).send(data);
 }
 
+async function getById(req: Request, res: Response ){
+
+    const data = await coinsServices.getById();
+
+    res.status(200).send(data);
+}
+
 const coinsController = {
-    getAll
+    getAll,
+    getById
 }
 
 export default coinsController;
