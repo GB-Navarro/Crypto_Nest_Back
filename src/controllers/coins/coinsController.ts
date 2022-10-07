@@ -11,7 +11,9 @@ async function getAll(req: Request, res:Response ){
 
 async function getById(req: Request, res: Response ){
 
-    const data = await coinsServices.getById();
+    const { id: coinId }= req.params;
+
+    const data = await coinsServices.getById(coinId);
 
     res.status(200).send(data);
 }

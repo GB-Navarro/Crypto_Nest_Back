@@ -12,14 +12,18 @@ async function getAll() {
     return data;
 }
 
-async function getById() {
+async function getById(coinId: string) {
 
     const CoinGeckoClient = new CoinGecko;
 
-    const result: any = await CoinGeckoClient.coins.fetch('bitcoin', {});
+    const result: any = await CoinGeckoClient.coins.fetch(coinId, {});
 
-    const data = coinsUtils.formatCoinData(result.data);
+    if (result.code === 404) {
+        throw ({ type: "coinIdDoNotExist", message: result.data.error });
+    }
     
+    const data = coinsUtils.formatCoinData(result.data);
+
     return data;
 }
 
