@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@polygon.io/client-js": "^6.0.4",
     "@prisma/client": "^4.4.0",
     "bcrypt": "^5.0.1",
     "coingecko-api": "^1.0.10",
