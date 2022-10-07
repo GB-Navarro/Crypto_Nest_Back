@@ -47,6 +47,41 @@ function formatAllCoinsData(unformatedData) {
     return result;
 }
 
+function formatCoinData(unformatedData: any) {
+    const {
+        id,
+        symbol,
+        name,
+        block_time_in_minutes,
+        hashing_algorithm,
+        description,
+        links,
+        image,
+        genesis_date,
+        market_cap_rank,
+        market_data,
+        community_data,
+        developer_data,
+    } = unformatedData;
+
+    const data = {
+        id: id,
+        symbol: symbol,
+        name: name,
+        block_time_in_minutes: block_time_in_minutes,
+        hashing_algorithm: hashing_algorithm,
+        description: filterCoinDescription(description),
+        links: filterCoinLinks(links),
+        image: filterCoinImage(image),
+        genesis_date: genesis_date,
+        market_cap_rank: market_cap_rank,
+        market_data: filterCoinMarketData(market_data),
+        community_data: filterCoinCommunityData(community_data),
+        developer_data: filterCoinDeveloperData(developer_data),
+    };
+
+    return data;
+}
 
 function filterCoinDescription(coinDescription: any) {
     return coinDescription.en;
@@ -120,7 +155,8 @@ function filterCoinDeveloperData(developerData: any) {
 }
 
 const coinsUtils = {
-    formatAllCoinsData
+    formatAllCoinsData,
+    formatCoinData,
 };
 
 export default coinsUtils;
