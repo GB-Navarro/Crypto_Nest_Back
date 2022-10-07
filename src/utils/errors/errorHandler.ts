@@ -5,7 +5,7 @@ export default async function errorHandler(error: any, req: Request, res: Respon
     if (error.type === "userDoNotExist" || error.type === "wrongPassword" || error.type === "invalidToken") {
         return res.status(401).send(error.message);
     }
-    if (error.type === "passwordsAreNotEqual" || error.type === "categoryDoNotExist") {
+    if (error.type === "passwordsAreNotEqual" || error.type === "categoryDoNotExist" || error.type === "coinIdDoNotExist") {
         return res.status(404).send(error.message);
     }
     if (error.type === "emailAlreadyExist" || error.type === "tittleAlreadyExist") {
