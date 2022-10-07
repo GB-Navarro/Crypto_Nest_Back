@@ -24,7 +24,6 @@ async function checkEmailExistence(email: string) {
 }
 
 async function signIn(data: signInInterface) {
-
     const { email, password }: { email: string, password: string } = data;
 
     const id = await getUserIdOrFail(email);
@@ -33,7 +32,7 @@ async function signIn(data: signInInterface) {
 
     authUtils.comparePasswords(password, encryptedPassword);
 
-    const token = authUtils.generateToken(id,email);
+    const token = authUtils.generateToken(id, email);
 
     return token;
 }
@@ -46,7 +45,7 @@ async function getUserIdOrFail(email: string) {
     }
 
     const { id } = result;
-    
+
     return id;
 }
 
