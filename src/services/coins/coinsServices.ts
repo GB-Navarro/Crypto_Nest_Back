@@ -12,8 +12,20 @@ async function getAll() {
     return data;
 }
 
+async function getById() {
+
+    const CoinGeckoClient = new CoinGecko;
+
+    const result: any = await CoinGeckoClient.coins.fetch('bitcoin', {});
+
+    const data = coinsUtils.formatCoinData(result.data);
+    
+    return data;
+}
+
 const coinsServices = {
-    getAll
+    getAll,
+    getById
 }
 
 export default coinsServices;
