@@ -66,6 +66,13 @@ export type CoinDevelopmentData = {
   commitCount4Weeks: number
 }
 
+export type CoinInterface = {
+  coinInfo: CoinInfo,
+  coinMarketData: CoinMarketData,
+  coinCommunityData: CoinCommunityData,
+  coinDevelopmentData: CoinDevelopmentData
+}
+
 export type UnformattedCoinImages = {
   thumb: string,
   small: string,
