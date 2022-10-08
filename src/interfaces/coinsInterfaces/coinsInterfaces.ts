@@ -43,6 +43,14 @@ export type CoinMarketData = {
   atlDate?: string,
 }
 
+export type CoinCommunityData = {
+  twitterFollowers: number,
+  redditAveragePosts48h: number,
+  redditAverageComments48h: number,
+  redditSubscribers: number,
+  redditAccountsActive48h: number
+}
+
 export type UnformattedCoinImages = {
   thumb: string,
   small: string,
