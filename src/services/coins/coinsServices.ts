@@ -1,12 +1,14 @@
+import { CoinInterface } from "../../interfaces/coinsInterfaces/coinsInterfaces";
+
 import CoinGecko from "coingecko-api";
 import coinsUtils from "../../utils//coins/coinsUtils";
 
 async function getAll() {
     const CoinGeckoClient = new CoinGecko;
 
-    const unformatedData: any = await CoinGeckoClient.coins.all();
+    const { data: unformatedData }: any = await CoinGeckoClient.coins.all();
 
-    const data = coinsUtils.formatAllCoinsData(unformatedData);
+    const data: Omit<CoinInterface, "communityData" | "developmentData"> = coinsUtils.formatAllCoinsData(unformatedData);
 
     return data;
 }
@@ -20,7 +22,7 @@ async function getById(coinId: string) {
         throw ({ type: "coinIdDoNotExist", message: result.data.error });
     }
 
-    const data = coinsUtils.formatCoinData(result.data);
+    const data: CoinInterface = coinsUtils.formatCoinData(result.data);
 
     return data;
 }
