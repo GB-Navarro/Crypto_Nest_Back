@@ -17,6 +17,32 @@ type CoinLinks = {
   repositories: string[]
 }
 
+export type CoinMarketData = {
+  currentPrice: number,
+  high24h: number,
+  low24h: number,
+  marketCapRank: number,
+  marketCap: number
+  marketCapChange24h: number,
+  marketCapChangePercentage24h: number,
+  priceChange24h?: number,
+  priceChangePercentage24h: number,
+  priceChangePercentage7d: number,
+  priceChangePercentage14d: number,
+  priceChangePercentage30d: number,
+  priceChangePercentage60d: number,
+  priceChangePercentage200d: number,
+  priceChangePercentage1y: number,
+  totalSupply: string
+  circulatingSupply: string
+  ath?: number,
+  athChangePercentage?: number,
+  athDate?: string,
+  atl?: number,
+  atlChangePercentage?: number,
+  atlDate?: string,
+}
+
 export type UnformattedCoinImages = {
   thumb: string,
   small: string,
