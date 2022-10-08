@@ -51,6 +51,21 @@ export type CoinCommunityData = {
   redditAccountsActive48h: number
 }
 
+export type CoinDevelopmentData = {
+  forks: number,
+  stars: number,
+  subscribers: number,
+  totalIssues: number,
+  closedIssues: number,
+  pullRequestsMerged: number,
+  pullRequestContributors: number,
+  codeAdditionsDeletions4Weeks: {
+    additions: number,
+    deletions: number
+  },
+  commitCount4Weeks: number
+}
+
 export type UnformattedCoinImages = {
   thumb: string,
   small: string,
