@@ -1,3 +1,22 @@
+export type CoinInfo = {
+  id: string,
+  symbol: string,
+  name: string,
+  image: string,
+  description?: string,
+  links?: CoinLinks,
+  blockTimeInMinutes?: number,
+  hashingAlgorithm?: number,
+  genesisDate?: string,
+}
+
+type CoinLinks = {
+  homepage: string[],
+  blockchainSite: string[],
+  forum: string[],
+  repositories: string[]
+}
+
 export type UnformattedCoinImages = {
   thumb: string,
   small: string,
