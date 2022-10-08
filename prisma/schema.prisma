@@ -7,59 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model articles {
-  id               Int              @id(map: "articles_pk") @default(autoincrement())
-  tittle           String
-  text             String
-  categoryId       Int
-  date             DateTime         @default(now())
-  articlesCategory articlesCategory @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "articles_fk0")
-  userArticles     userArticles[]
-}
-
-model articlesCategory {
-  id       Int        @id(map: "articlesCategory_pk") @default(autoincrement())
-  name     String     @unique
-  articles articles[]
-}
-
-model news {
-  id           Int          @id(map: "news_pk") @default(autoincrement())
-  tittle       String
-  text         String
-  categoryId   Int
-  date         DateTime     @default(now())
-  newsCategory newsCategory @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "news_fk0")
-  userNews     userNews[]
-}
-
-model newsCategory {
-  id   Int    @id(map: "newsCategory_pk") @default(autoincrement())
-  name String @unique
-  news news[]
-}
-
-model userArticles {
-  id        Int      @id(map: "userArticles_pk") @default(autoincrement())
-  userId    Int
-  articleId Int
-  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userArticles_fk0")
-  articles  articles @relation(fields: [articleId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userArticles_fk1")
-}
-
-model userNews {
-  id     Int   @id(map: "userNews_pk") @default(autoincrement())
-  userId Int
-  newsId Int
-  users  users @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userNews_fk0")
-  news   news  @relation(fields: [newsId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userNews_fk1")
-}
-
 model users {
-  id           Int            @id(map: "users_pk") @default(autoincrement())
-  name         String         @db.VarChar(15)
-  email        String         @unique @db.VarChar(40)
-  password     String
-  userArticles userArticles[]
-  userNews     userNews[]
+  id       Int    @id(map: "users_pk") @default(autoincrement())
+  name     String @db.VarChar(15)
+  email    String @unique @db.VarChar(40)
+  password String
 }

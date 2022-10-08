@@ -25,16 +25,15 @@ function generateToken(userId: number, userEmail: string): string {
     }
 
     const config = {
-        expiresIn: 60*60
+        expiresIn: 60 * 60
     }
-    
+
     const token = jwt.sign(data, process.env.JWT_KEY, config);
 
     return token;
 }
 
 function filterToken(unfilteredToken: string): string {
-
     const token = unfilteredToken.replace("Bearer ", "");
 
     return token;

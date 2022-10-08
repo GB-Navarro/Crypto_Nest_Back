@@ -2,26 +2,26 @@ import { signUpInterface } from "../../interfaces/authInterfaces/authInterfaces"
 
 import prisma from "../../database/prisma";
 
-async function signUp(data: Omit<signUpInterface, "confirmedPassword">){
+async function signUp(data: Omit<signUpInterface, "confirmedPassword">) {
     await prisma.users.create({
-        data:data
+        data: data
     });
 }
 
-async function getUserByEmail(email: string){
+async function getUserByEmail(email: string) {
     return await prisma.users.findFirst({
-        where:{
-            email:email
+        where: {
+            email: email
         }
     })
 }
 
-async function getUserPasswordByEmail(email: string){
+async function getUserPasswordByEmail(email: string) {
     return await prisma.users.findFirst({
-        where:{
+        where: {
             email: email
         },
-        select:{
+        select: {
             password: true
         }
     })

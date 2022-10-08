@@ -9,4 +9,5 @@ const authRouter = Router();
 
 authRouter.post("/sign-up", genericMiddlewares.validateSchema(authSchemas.signUp), authMiddlewares.checkPasswordsEquality, authController.signUp);
 authRouter.post("/sign-in", genericMiddlewares.validateSchema(authSchemas.signIn), authController.signIn);
+
 export default authRouter;

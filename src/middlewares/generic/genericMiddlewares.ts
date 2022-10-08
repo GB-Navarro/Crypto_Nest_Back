@@ -13,7 +13,7 @@ export function validateSchema(schema: ObjectSchema) {
 }
 
 const genericMiddlewares = {
-    validateSchema
+  validateSchema
 }
 
 export default genericMiddlewares;
