@@ -13,3 +13,8 @@ model users {
   email    String @unique @db.VarChar(40)
   password String
 }
+
+model tokenBlocklist {
+  id      Int    @id(map: "tokenBlocklist_pk") @default(autoincrement())
+  token   String @unique
+}
