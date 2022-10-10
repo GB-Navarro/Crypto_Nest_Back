@@ -58,9 +58,27 @@ async function getUserIdOrFail(email: string) {
     return id;
 }
 
+async function signOut(unfilteredToken: string) {
+    const token: string = authUtils.filterToken(unfilteredToken);
+
+    await authRepository.addTokenToTheBlockList(token);
+}
+
+async function checkIfTokenIsBlocked(unfilteredToken: string) {
+    const token: string = authUtils.filterToken(unfilteredToken);
+
+    const result = await authRepository.checkIfTokenIsBlocked(token);
+
+    if (result != null) {
+        throw ({ type: "invalidToken", message: "Invalid token!" });
+    }
+}
+
 const authServices = {
     signUp,
-    signIn
+    signIn,
+    signOut,
+    checkIfTokenIsBlocked
 }
 
 export default authServices;

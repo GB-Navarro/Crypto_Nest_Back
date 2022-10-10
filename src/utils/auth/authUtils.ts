@@ -41,6 +41,9 @@ function filterToken(unfilteredToken: string): string {
 }
 
 function getTokenDataOrFail(unfilteredToken: string) {
+
+    checkIfIsBearerToken(unfilteredToken);
+
     const token = filterToken(unfilteredToken);
 
     try {
@@ -53,11 +56,25 @@ function getTokenDataOrFail(unfilteredToken: string) {
 
 }
 
+function checkIfIsBearerToken(unfilteredToken: string): void {
+    //Pode ser feito com Regex
+    let aux = "";
+
+    for (let i = 0; i < 7; i++) {
+        aux += unfilteredToken[i];
+    }
+
+    if (aux != 'Bearer ') {
+        throw ({ type: "invalidToken", message: "Invalid token!" });
+    }
+}
+
 const authUtils = {
     encryptPassword,
     generateToken,
     comparePasswords,
-    getTokenDataOrFail
+    getTokenDataOrFail,
+    filterToken
 }
 
 export default authUtils;
