@@ -20,7 +20,12 @@ function validateToken(req: Request, res: Response, next: NextFunction) {
         throw ({ type: "invalidToken", message: "Invalid token!" });
     }
 
-    const data = authUtils.getTokenDataOrFail(token);
+    const payload = authUtils.getTokenDataOrFail(token);
+
+    const data = {
+        token: token,
+        payload: payload
+    }
 
     res.locals.data = data;
 
