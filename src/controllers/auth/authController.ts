@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { signInInterface, signUpInterface } from "../../interfaces/authInterfaces/authInterfaces";
+import { UserInfo } from "../../interfaces/userInterfaces/userInterfaces";
 
 import authServices from "../../services/auth/authServices";
 
@@ -14,9 +15,9 @@ async function signUp(req: Request, res: Response) {
 async function signIn(req: Request, res: Response) {
     const data: signInInterface = req.body;
 
-    const token = await authServices.signIn(data);
+    const response: UserInfo = await authServices.signIn(data);
 
-    res.send(token).status(200);
+    res.send(response).status(200);
 }
 
 const authController = {
