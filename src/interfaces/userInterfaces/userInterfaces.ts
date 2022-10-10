@@ -1,4 +1,5 @@
-export type userInfoInterface = {
-    userId: number,
+export type UserInfo = {
+    id: number,
+    name: string,
     email: string
 }
