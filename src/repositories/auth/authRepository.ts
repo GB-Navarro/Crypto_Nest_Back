@@ -1,5 +1,5 @@
 import { signUpInterface } from "../../interfaces/authInterfaces/authInterfaces";
-
+import { tokenBlocklist } from "@prisma/client";
 import prisma from "../../database/prisma";
 
 async function signUp(data: Omit<signUpInterface, "confirmedPassword">) {
@@ -38,11 +38,28 @@ async function getUserNameByEmail(email: string) {
     })
 }
 
+async function addTokenToTheBlockList(token: string) {
+    return await prisma.tokenBlocklist.create({
+        data: {
+            token: token
+        }
+    })
+}
+
+async function checkIfTokenIsBlocked(token: string) {
+    return await prisma.tokenBlocklist.findFirst({
+        where:{
+            token: token
+        }
+    })
+}
 const authRepository = {
     signUp,
     getUserByEmail,
     getUserPasswordByEmail,
-    getUserNameByEmail
+    getUserNameByEmail,
+    addTokenToTheBlockList,
+    checkIfTokenIsBlocked
 }
 
 export default authRepository;
