@@ -57,7 +57,8 @@ const authUtils = {
     encryptPassword,
     generateToken,
     comparePasswords,
-    getTokenDataOrFail
+    getTokenDataOrFail,
+    filterToken
 }
 
 export default authUtils;
