@@ -20,9 +20,19 @@ async function signIn(req: Request, res: Response) {
     res.send(response).status(200);
 }
 
+async function signOut(req: Request, res: Response) {
+
+    const { token } = res.locals.data;
+
+    await authServices.signOut(token);
+
+    res.status(200).send("Ok!");
+}
+
 const authController = {
     signUp,
-    signIn
+    signIn,
+    signOut
 }
 
 export default authController;
