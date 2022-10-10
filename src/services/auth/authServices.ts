@@ -1,4 +1,5 @@
 import { signInInterface, signUpInterface } from "../../interfaces/authInterfaces/authInterfaces";
+import { UserInfo } from "../../interfaces/userInterfaces/userInterfaces";
 
 import authRepository from "../../repositories/auth/authRepository";
 import authUtils from "../../utils/auth/authUtils";
@@ -36,7 +37,13 @@ async function signIn(data: signInInterface) {
 
     const token = authUtils.generateToken(id, email, name);
 
-    return token;
+    const response: UserInfo = {
+        name: name,
+        email: email,
+        token: token
+    }
+
+    return response;
 }
 
 async function getUserIdOrFail(email: string) {
