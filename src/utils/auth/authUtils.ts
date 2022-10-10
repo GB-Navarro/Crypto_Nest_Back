@@ -18,10 +18,11 @@ function comparePasswords(password: string, encryptedPassword: string): void {
     }
 }
 
-function generateToken(userId: number, userEmail: string): string {
+function generateToken(userId: number, userEmail: string, userName: string): string {
     const data = {
         userId: userId,
-        userEmail: userEmail
+        userEmail: userEmail,
+        userName: userName
     }
 
     const config = {
