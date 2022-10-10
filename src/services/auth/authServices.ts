@@ -32,7 +32,9 @@ async function signIn(data: signInInterface) {
 
     authUtils.comparePasswords(password, encryptedPassword);
 
-    const token = authUtils.generateToken(id, email);
+    const { name } = await authRepository.getUserNameByEmail(email);
+
+    const token = authUtils.generateToken(id, email, name);
 
     return token;
 }
