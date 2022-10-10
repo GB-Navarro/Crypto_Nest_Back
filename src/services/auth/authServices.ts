@@ -60,6 +60,8 @@ async function getUserIdOrFail(email: string) {
 
 async function signOut(unfilteredToken: string) {
     const token: string = authUtils.filterToken(unfilteredToken);
+
+    await authRepository.addTokenToTheBlockList(token);
 }
 
 async function checkIfTokenIsBlocked(unfilteredToken: string) {
